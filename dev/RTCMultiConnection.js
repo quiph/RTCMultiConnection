@@ -902,6 +902,10 @@
         connection.peers.send(data, remoteUserId);
     };
 
+    connection.sendPlainString = function(data, remoteUserId) {
+        connection.peers.sendPlainString(data, remoteUserId);
+    };
+
     connection.close = connection.disconnect = connection.leave = function() {
         connection.onbeforeunload(false, true);
     };

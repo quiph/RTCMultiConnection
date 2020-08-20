@@ -1,7 +1,7 @@
 function MultiPeers(connection) {
     var self = this;
 
-    var skipPeers = ['getAllParticipants', 'getLength', 'selectFirst', 'streams', 'send', 'forEach'];
+    var skipPeers = ['getAllParticipants', 'getLength', 'selectFirst', 'streams', 'send', 'sendPlainString', 'forEach'];
     connection.peers = {
         getLength: function() {
             var numberOfPeers = 0;
@@ -33,6 +33,45 @@ function MultiPeers(connection) {
         forEach: function(callback) {
             this.getAllParticipants().forEach(function(participant) {
                 callback(connection.peers[participant]);
+            });
+        },
+        sendPlainString: function(data, remoteUserId) {
+            var that = this;
+
+            if (remoteUserId) {
+                var remoteUser = connection.peers[remoteUserId];
+                if (remoteUser) {
+                    if (!remoteUser.channels.length) {
+                        connection.peers[remoteUserId].createDataChannel();
+                        connection.renegotiate(remoteUserId);
+                        setTimeout(function() {
+                            that.send(data, remoteUserId);
+                        }, 3000);
+                        return;
+                    }
+
+                    remoteUser.channels.forEach(function(channel) {
+                        channel.send(data);
+                    });
+                    return;
+                }
+            }
+
+            this.getAllParticipants().forEach(function(participant) {
+                if (!that[participant].channels.length) {
+                    connection.peers[participant].createDataChannel();
+                    connection.renegotiate(participant);
+                    setTimeout(function() {
+                        that[participant].channels.forEach(function(channel) {
+                            channel.send(data);
+                        });
+                    }, 3000);
+                    return;
+                }
+
+                that[participant].channels.forEach(function(channel) {
+                    channel.send(data);
+                });
             });
         },
         send: function(data, remoteUserId) {
