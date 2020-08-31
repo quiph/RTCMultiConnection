@@ -1,6 +1,6 @@
 'use strict';
 
-// Last time updated: 2020-08-20 5:25:52 PM UTC
+// Last time updated: 2020-08-31 12:49:30 PM UTC
 
 // _________________________
 // RTCMultiConnection v3.7.0
@@ -746,12 +746,12 @@ var RTCMultiConnection = function(roomid, forceOptions) {
 
             if (!!peer.getSenders && typeof peer.getSenders === 'function' && peer.getSenders().length) {
                 peer.getSenders().forEach(function(rtpSender) {
-                    if (isVideoTrack && rtpSender.track.kind === 'video') {
+                    if (isVideoTrack && rtpSender && rtpSender.track && rtpSender.track.kind === 'video') {
                         connection.peers[remoteUserId].peer.lastVideoTrack = rtpSender.track;
                         rtpSender.replaceTrack(track);
                     }
 
-                    if (!isVideoTrack && rtpSender.track.kind === 'audio') {
+                    if (!isVideoTrack && rtpSender && rtpSender.track && rtpSender.track.kind === 'audio') {
                         connection.peers[remoteUserId].peer.lastAudioTrack = rtpSender.track;
                         rtpSender.replaceTrack(track);
                     }
