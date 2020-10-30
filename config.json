@@ -12,6 +12,6 @@
   "sslCert": "./fake-keys/certificate.pem",
   "sslCabundle": "",
   "enableAdmin": "true",
-  "adminUserName": "qadmin",
-  "adminPassword": "quiph@5245"
+  "adminUserName": "quiph-admin",
+  "adminPassword": "Quiph@2208"
 }
