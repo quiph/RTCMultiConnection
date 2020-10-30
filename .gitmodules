@@ -1,0 +1,3 @@
+[submodule "RTCMultiConnection-Server"]
+	path = RTCMultiConnection-Server
+	url = https://github.com/quiph/RTCMultiConnection-Server.git

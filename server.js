@@ -7,7 +7,7 @@ const url = require('url');
 var httpServer = require('http');
 
 const ioServer = require('socket.io');
-const RTCMultiConnectionServer = require('rtcmulticonnection-server');
+const RTCMultiConnectionServer = require('./RTCMultiConnection-Server');
 
 var PORT = 9001;
 var isUseHTTPs = false;

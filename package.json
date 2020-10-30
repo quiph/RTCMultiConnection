@@ -54,7 +54,6 @@
     "getstats": "latest",
     "multistreamsmixer": "latest",
     "recordrtc": "latest",
-    "rtcmulticonnection-server": "latest",
     "socket.io": "latest",
     "webrtc-adapter": "latest"
   },
